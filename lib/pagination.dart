@@ -83,8 +83,22 @@ Widget createPaginationBar(int totalItems, int skip, int limit, WidgetRef ref) {
     // if selected paginationPage == numberOfPages - 2 || numberOfPages - 3 => left arrow, page 1 pos 2, ellipsis pos 3, pos 4-6, right arrow
     // if selected paginationPage > 2 || < numberOfPages - 3 => pos 1 left arrow, pos 2 1, pos 3 ellipsis, pos 4 selected page, pos 5 ellipsis, pos 6 final page, pos 7 right arrow
     for (int i = 0; i < 7; i++) {
-      /// add ellipsis
-      if ((paginationPage > 0 && i == 4) ||
+      /// show left button
+      if (paginationPage > 0 && i == 0) {
+        row.add(GestureDetector(
+          onTap: () {
+            print('skip: $i -- limit: $limit');
+            ref.read(paginationPageProvider.state).state--;
+          },
+          child: Column(
+            children: [
+              Icon(Icons.arrow_back_ios, color: Colors.black, size: 15.0),
+              SizedBox(height: 2.0),
+            ],
+          ),
+        ));
+        /// add ellipsis
+      } else if ( (paginationPage > 0 && i == 4) ||
           ((paginationPage == numberOfPages - 1 || paginationPage == numberOfPages - 2 || paginationPage == numberOfPages - 3) && i == 2) ||
           ((paginationPage > 2 || paginationPage < numberOfPages - 3) && (i == 2) || i == 4)
       ) {
@@ -111,21 +125,18 @@ Widget createPaginationBar(int totalItems, int skip, int limit, WidgetRef ref) {
             ),
           ),
         ));
-        // if not on last page show right arrow
+        /// if not on last page show right arrow
       } else if (paginationPage != numberOfPages - 1 && i == 6) {
         row.add(GestureDetector(
           onTap: () {
             print('skip: $i -- limit: $limit');
             ref.read(paginationPageProvider.state).state++;
           },
-          child: Padding(
-            padding: EdgeInsets.only(right: i < numberOfPages ? 10.0 : 0),
-            child: Column(
-              children: [
-                Icon(Icons.arrow_forward_ios, color: Colors.black,),
-                SizedBox(height: 2.0),
-              ],
-            ),
+          child: Column(
+            children: [
+              Icon(Icons.arrow_forward_ios, color: Colors.black, size: 15.0),
+              SizedBox(height: 2.0),
+            ],
           ),
         ));
         /// if last item is selected
