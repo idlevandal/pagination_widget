@@ -50,7 +50,7 @@ Widget createPaginationBar(int totalItems, int skip, int limit, WidgetRef ref) {
   // print('totalItems: $totalItems -- limit: $limit');
   // print('numPages: $numberOfPages');
 
-  /// if 7 or less page groups, just show page indicators
+  /// if 7 or less page groups, just show page indicators 👍
   if (numberOfPages <= 7) {
     for (int i = 0; i < numberOfPages; i++) {
       row.add(GestureDetector(
@@ -77,13 +77,8 @@ Widget createPaginationBar(int totalItems, int skip, int limit, WidgetRef ref) {
       children: row
     );
   } else {
-    // if selected paginationPage == 0 => no left arrow, pos 1-4 numbers, ellipsis pos 5, final page pos 6, right arrow pos 7
-    // if selected paginationPage == 1 || 2 => left arrow, pos 2-4 numbers, ellipsis pos 5, final page pos 6, right arrow pos 7
-    // if selected paginationPage == numberOfPages - 1 => left arrow, page 1 pos 2, ellipsis pos 3, pos 4-7 no right arrow
-    // if selected paginationPage == numberOfPages - 2 || numberOfPages - 3 => left arrow, page 1 pos 2, ellipsis pos 3, pos 4-6, right arrow
-    // if selected paginationPage > 2 || < numberOfPages - 3 => pos 1 left arrow, pos 2 1, pos 3 ellipsis, pos 4 selected page, pos 5 ellipsis, pos 6 final page, pos 7 right arrow
     for (int i = 0; i < 7; i++) {
-      /// show left button
+      /// show LEFT ARROW BUTTON 👍
       if (paginationPage > 0 && i == 0) {
         row.add(GestureDetector(
           onTap: () {
@@ -97,8 +92,13 @@ Widget createPaginationBar(int totalItems, int skip, int limit, WidgetRef ref) {
             ],
           ),
         ));
-        /// add ellipsis
-      } else if ( (paginationPage > 0 && i == 4) ||
+        // if selected paginationPage == 0 => no left arrow, pos 1-4 numbers, ellipsis pos 5, final page pos 6, right arrow pos 7
+        // if selected paginationPage == 1 || 2 => left arrow, pos 2-4 numbers, ellipsis pos 5, final page pos 6, right arrow pos 7
+        // if selected paginationPage == numberOfPages - 1 => left arrow, page 1 pos 2, ellipsis pos 3, pos 4-7 no right arrow
+        // if selected paginationPage == numberOfPages - 2 || numberOfPages - 3 => left arrow, page 1 pos 2, ellipsis pos 3, pos 4-6, right arrow
+        // if selected paginationPage > 2 || < numberOfPages - 3 => pos 1 left arrow, pos 2 1, pos 3 ellipsis, pos 4 selected page, pos 5 ellipsis, pos 6 final page, pos 7 right arrow
+        /// add ELLIPSIS
+      } else if ((paginationPage > 0 && i == 4) ||
           ((paginationPage == numberOfPages - 1 || paginationPage == numberOfPages - 2 || paginationPage == numberOfPages - 3) && i == 2) ||
           ((paginationPage > 2 || paginationPage < numberOfPages - 3) && (i == 2) || i == 4)
       ) {
@@ -125,7 +125,7 @@ Widget createPaginationBar(int totalItems, int skip, int limit, WidgetRef ref) {
             ),
           ),
         ));
-        /// if not on last page show right arrow
+        /// if not on last page show RIGHT ARROW BUTTON
       } else if (paginationPage != numberOfPages - 1 && i == 6) {
         row.add(GestureDetector(
           onTap: () {
@@ -160,6 +160,7 @@ Widget createPaginationBar(int totalItems, int skip, int limit, WidgetRef ref) {
         //       ),
         //     ));
       } else {
+        /// show the numbers if not an ellipsis or arrow
         row.add(GestureDetector(
           onTap: () {
             // print('skip: $i -- limit: $limit');
